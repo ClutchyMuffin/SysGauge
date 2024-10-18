@@ -1,5 +1,5 @@
 from system_metrics import SystemMetrics
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout
 
 # The SystemMonitorView class is a subclass of QMainWindow
 class SystemMonitorView(QMainWindow):
@@ -18,8 +18,14 @@ class SystemMonitorView(QMainWindow):
 
     # Setup the main window
     def setup_main_window(self):
-        print("Setting up main window")
-        # add stuff here
+        self.setGeometry(100, 100, 800, 600)
+        self.setWindowTitle('System Monitor')
+
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
+
+        self.main_layout = QVBoxLayout()
+        self.central_widget.setLayout(self.main_layout)
 
     # Create the metrics layout (top bar)
     def create_metrics_layout(self):

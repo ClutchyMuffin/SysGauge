@@ -69,10 +69,22 @@ class SystemMonitorView(QMainWindow):
 
     # Update the metrics displayed in the labels
     def update_metrics(self):
-        print("Updating metrics")
-        # add stuff here
+        self.cpu_label.setText(f"CPU Usage: {self.model.get_cpu_history()[-1]}%")
+        self.mem_label.setText(f"Memory Usage: {self.model.get_mem_history()[-1]}%")
+        self.disk_label.setText(f"Disk Usage: {self.model.get_disk_usage()}%")
+        self.net_label.setText(f"Network (sent/received): {self.model.get_network_io()[0]:.2f} MB / {self.model.get_network_io()[1]:.2f} MB")
+
 
     # Update the plots
-    def update_plots(self):
-        print("Updating plots")
-        # add stuff here
+    def update_plot(self):
+        self.cpu_ax.clear()
+        self.cpu_ax.set_title('CPU Usage')
+        self.cpu_ax.set_ylim(0, 100)
+        self.cpu_ax.plot(self.model.get_cpu_history())
+        self.cpu_canvas.draw()
+
+        self.mem_ax.clear()
+        self.mem_ax.set_title('Memory Usage')
+        self.mem_ax.set_ylim(0, 100)
+        self.mem_ax.plot(self.model.get_mem_history())
+        self.mem_canvas.draw()

@@ -33,7 +33,7 @@ A simple system monitoring application built using Python and PyQt5 that tracks 
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/system-monitor.git
+    git clone https://github.com/ClutchyMuffin/SysGauge.git
     cd system-monitor
     ```
 

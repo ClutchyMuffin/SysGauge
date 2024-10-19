@@ -1,5 +1,5 @@
 from system_metrics import SystemMetrics
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel
+from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QMessageBox
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
@@ -17,6 +17,11 @@ class SystemMonitorView(QMainWindow):
         self.setup_main_window()
         self.create_metrics_layout()
         self.create_plot_layout()
+
+        # Alert Label for displaying warnings
+        self.alert_label = QLabel("")
+        self.alert_label.setStyleSheet("color: red; font-weight: bold;")
+        self.main_layout.addWidget(self.alert_label)
 
     # Setup the main window
     def setup_main_window(self):
@@ -88,3 +93,16 @@ class SystemMonitorView(QMainWindow):
         self.mem_ax.set_ylim(0, 100)
         self.mem_ax.plot(self.model.get_mem_history())
         self.mem_canvas.draw()
+
+
+    def show_alert_popup(self, message):
+        """Show a pop-up alert."""
+        alert = QMessageBox(self)
+        alert.setIcon(QMessageBox.Warning)
+        alert.setText(message)
+        alert.setWindowTitle("System Alert")
+        alert.exec_()
+
+    def update_alert_label(self, message):
+        """Update the alert label in the UI."""
+        self.alert_label.setText(message)

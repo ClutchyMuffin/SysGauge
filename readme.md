@@ -14,7 +14,7 @@ A simple system monitoring application built using Python and PyQt5 that tracks 
 | Feature                                      | Status     |
 |----------------------------------------------|------------|
 | **Real-Time Alerts**                         | ✅   |
-| **Dark/Light Theme Switching**               | ❌   |
+| **Dark/Light Theme Switching**               | ✅   |
 | **Real-Time GPU Monitoring**                 | ❌   |
 | **Multi-Process Monitoring**                 | ❌   |
 | **Interactive Visualizations**               | ❌   |

@@ -78,6 +78,9 @@ class SystemMonitorView(QMainWindow):
                 border-radius: 10px;
                 padding: 10px;
             }
+            QLabel {
+                color: white;
+            }
         """)
         
         info_layout = QHBoxLayout()
@@ -107,6 +110,7 @@ class SystemMonitorView(QMainWindow):
             }
             QLabel {
                 font-size: 14px;
+                color: white;
             }
             QProgressBar {
                 border: 2px solid grey;
@@ -396,6 +400,9 @@ class SystemMonitorView(QMainWindow):
                 QFrame {
                     background-color: rgba(0, 0, 0, 0.05);
                 }
+                QLabel {
+                    color: black;
+                }
                 QProgressBar::chunk {
                     background-color: #0078d4;
                 }
@@ -413,6 +420,9 @@ class SystemMonitorView(QMainWindow):
             style = base_style + """
                 QFrame {
                     background-color: rgba(255, 255, 255, 0.05);
+                }
+                QLabel {
+                    color: white;
                 }
                 QProgressBar::chunk {
                     background-color: #3daee9;

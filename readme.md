@@ -2,10 +2,13 @@
 
 A simple system monitoring application built using Python and PyQt5 that tracks and displays system metrics such as CPU usage, memory usage, disk usage, and network I/O. It also provides visual graphs of CPU and memory usage over time, and alerts the user if any of the metrics exceed predefined thresholds.
 
+![image](https://github.com/user-attachments/assets/e89a6d63-4560-41a6-9cf3-e64a16af8431)
+
+
 ## Features
 
 - Displays real-time system metrics (CPU, memory, disk usage, and network I/O).
-- Graphs for CPU and memory usage.
+- Graphs and charts for all of the system metrics.
 - Alert system for high CPU, memory, or disk usage.
 - Real-time updates with automatic polling.
 

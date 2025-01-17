@@ -10,34 +10,17 @@ import platform
 import numpy as np
 
 class SystemMonitorView(QMainWindow):
+    
+    #
+    # -- Initialization and Setup -- 
+    #
+
     def __init__(self, model: SystemMetrics):
         super().__init__()
         self.model = model
         self.create_menu_bar()
         self.initUI()
         self.apply_dark_theme()
-
-    def apply_dark_theme(self):
-        # Set dark theme palette
-        dark_palette = QPalette()
-        dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.WindowText, QColor(255, 255, 255))
-        dark_palette.setColor(QPalette.Base, QColor(25, 25, 25))
-        dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.ToolTipBase, QColor(255, 255, 255))
-        dark_palette.setColor(QPalette.ToolTipText, QColor(255, 255, 255))
-        dark_palette.setColor(QPalette.Text, QColor(255, 255, 255))
-        dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.ButtonText, QColor(255, 255, 255))
-        dark_palette.setColor(QPalette.BrightText, QColor(255, 0, 0))
-        dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
-        dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-        dark_palette.setColor(QPalette.HighlightedText, QColor(255, 255, 255))
-        self.setPalette(dark_palette)
-
-        # Update frame styles
-        self.update_frame_styles("dark")
-        self.update_graph_styles("dark")
 
     def initUI(self):
         self.setup_main_window()
@@ -68,6 +51,21 @@ class SystemMonitorView(QMainWindow):
         self.main_layout.setSpacing(20)
         self.main_layout.setContentsMargins(20, 20, 20, 20)
         self.central_widget.setLayout(self.main_layout)
+
+    def create_menu_bar(self):
+        menubar = self.menuBar()
+        view_menu = menubar.addMenu('View')
+        
+        # Theme switcher action
+        self.theme_action = QAction('Switch to Light Theme', self)
+        self.theme_action.triggered.connect(self.toggle_theme)
+        view_menu.addAction(self.theme_action)
+
+
+    
+    #
+    # -- Main UI Components --
+    #
 
     def create_system_info(self):
         info_frame = QFrame()
@@ -210,15 +208,10 @@ class SystemMonitorView(QMainWindow):
         
         return {'frame': frame, 'label': label, 'progress': progress}
 
-    def style_plot(self, ax, title):
-        ax.set_facecolor('#252525')
-        ax.set_title(title, color='white', pad=10, fontsize=12)
-        if title != 'Disk Usage':  # Don't set ylim for pie chart
-            ax.set_ylim(0, 100)
-        ax.grid(True, linestyle='--', alpha=0.3)
-        ax.tick_params(colors='white')
-        for spine in ax.spines.values():
-            spine.set_color('white')
+
+    #
+    # -- Metrics and Updates --
+    #
 
     def update_metrics(self):
         # Update CPU
@@ -284,6 +277,22 @@ class SystemMonitorView(QMainWindow):
                          textprops={'color': 'white' if self.theme_action.text() == 'Switch to Light Theme' else 'black'})
         self.disk_fig.tight_layout(pad=1.0)
         self.disk_canvas.draw()
+    
+
+    def style_plot(self, ax, title):
+        ax.set_facecolor('#252525')
+        ax.set_title(title, color='white', pad=10, fontsize=12)
+        if title != 'Disk Usage':  # Don't set ylim for pie chart
+            ax.set_ylim(0, 100)
+        ax.grid(True, linestyle='--', alpha=0.3)
+        ax.tick_params(colors='white')
+        for spine in ax.spines.values():
+            spine.set_color('white')
+
+
+    #
+    # -- Alerts -- 
+    #
 
     def show_alert_popup(self, message):
         alert = QMessageBox(self)
@@ -339,14 +348,10 @@ class SystemMonitorView(QMainWindow):
     def update_alert_label(self, message):
         self.alert_label.setText(message)
 
-    def create_menu_bar(self):
-        menubar = self.menuBar()
-        view_menu = menubar.addMenu('View')
-        
-        # Theme switcher action
-        self.theme_action = QAction('Switch to Light Theme', self)
-        self.theme_action.triggered.connect(self.toggle_theme)
-        view_menu.addAction(self.theme_action)
+    
+    #
+    # -- Theming and Styles -- 
+    #
 
     def toggle_theme(self):
         if self.theme_action.text() == 'Switch to Light Theme':
@@ -355,6 +360,28 @@ class SystemMonitorView(QMainWindow):
         else:
             self.apply_dark_theme()
             self.theme_action.setText('Switch to Light Theme')
+
+    def apply_dark_theme(self):
+        # Set dark theme palette
+        dark_palette = QPalette()
+        dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.WindowText, QColor(255, 255, 255))
+        dark_palette.setColor(QPalette.Base, QColor(25, 25, 25))
+        dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.ToolTipBase, QColor(255, 255, 255))
+        dark_palette.setColor(QPalette.ToolTipText, QColor(255, 255, 255))
+        dark_palette.setColor(QPalette.Text, QColor(255, 255, 255))
+        dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.ButtonText, QColor(255, 255, 255))
+        dark_palette.setColor(QPalette.BrightText, QColor(255, 0, 0))
+        dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
+        dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+        dark_palette.setColor(QPalette.HighlightedText, QColor(255, 255, 255))
+        self.setPalette(dark_palette)
+
+        # Update frame styles
+        self.update_frame_styles("dark")
+        self.update_graph_styles("dark")
 
     def apply_light_theme(self):
         # Light theme palette
